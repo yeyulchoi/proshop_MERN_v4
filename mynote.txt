@@ -1,0 +1,35 @@
+1. bootstrap : router / npm i react-router-bootstrap  
+ <Navbar.Brand href='/'>  import LinkContainer and wrap codes around with it and 
+use 'to' .
+to create router
+not using react-router-dom. / 
+
+I didn't use cusmized  asynchandler.if causing problem. see 24.
+asyncHandler is only used for async /await to handle the exception.
+by importing express-async-handler
+When using asyncHandler, don't have to use try/catch.
+
+Understand the CORS. for security , used proxy saved in react package.json.
+
+
+frontend's route is url. When I click the link holding a certain URL,
+it means that i touch the params. 
+The params is related to body.params.id which is used in backend.
+The moment i click the link that hold the url, I sent/touch/requested
+ the params, which is body.params
+
+
+ tell apart!!req.params vs. req.query vs. req.body
+ req.params: contains url parameters defined in the route path.
+ req.query:contains query string parameters from url.
+ req.body: contains data sent in the body of the request, 
+ typically used in  POST, PUT or PATCH request
+
+
+ If next.js is used, don't have to use useState etc..
+
+ react-redux is a kind of bridge to connect react and redux together
+ redux can be used without react. it can be used with angular/vue etc.
+
+
+ redux . surround main router with it
