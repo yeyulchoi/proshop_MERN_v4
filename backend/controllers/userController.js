@@ -9,7 +9,7 @@ import generateToken from "../utils/generateToken.js "
 //@route POST /api/users/auth
 //@access public        -bodyparser: body object => js object// res.json(): js object ==>json string & send json data(http response) to the client
 const authUser =asyncHandler(async (req,res)=>{
-    const {email, password }=req.body
+    const {email, password }=req.body;
 
     const user =await User.findOne({email}) //or User.findOne({email:email})
 
@@ -35,6 +35,7 @@ const authUser =asyncHandler(async (req,res)=>{
 //@access public
 const registerUser =asyncHandler(async (req,res)=>{
   const{name, email, password} = req.body;
+  console.log('new user',name, email)
 
   const userExists = await User.findOne({email})
   
@@ -44,10 +45,10 @@ const registerUser =asyncHandler(async (req,res)=>{
   }
 
   const user = await User.create({name,email,password})
-
+ console.log(user.name, user.email)
   if(user){
     generateToken(res,user._id)
-  
+    console.log('here is just registered new member',token) 
     res.status(201).json({
         _id:user._id,
         name:user.name,
@@ -132,14 +133,14 @@ const getUsers =asyncHandler(async (req,res)=>{
 //@desc GET user by ID
 //@route GET /api/users/:id
 //@access private/Admin
-const getUserById =asyncHandler(async (req,res)=>{
+const getUserByID =asyncHandler(async (req,res)=>{
     res.send('get user by Id')   
 })
 
 //@desc Delete user
 //@route DELETE /api/users/:id
 //@access private/Admin
-const deleteUsers =asyncHandler(async (req,res)=>{
+const deleteUser =asyncHandler(async (req,res)=>{
   
 })
 
@@ -160,7 +161,7 @@ export {
     getUserProfile,
     updateUserProfile,
     getUsers,
-    getUserById,
-    deleteUsers,
+    getUserByID,
+    deleteUser,
     updateUser
 }

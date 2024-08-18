@@ -4,10 +4,10 @@ import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 
 //protect routes
- const protect =asyncHandler(async(req,res,next)=>{
+ const protect =asyncHandler(async(req, res, next)=>{
     let token;
 
-    //Read the JWT from teh cookie
+    //Read the JWT from the cookie
     token = req.cookies.jwt;
 
     if(token){
@@ -16,14 +16,13 @@ import User from '../models/userModel.js'
             req.user = await User.findById(decoded.userId).select('-password')
             next()
         } catch (error) {
-            console.log(error)
-         res.status(401)   
-         throw new Error('Not authenticated, token failed')
+            console.error('Token verification failed:', error);
+         res.status(401).json({ message: 'Not authenticated, no token' });   
+         
         }
 
     }else{
-        res.status(401)
-        throw new Error('Not authenticated, no token')
+        res.status(401).json({ message: 'Not authenticated, no token' });
 
     }
 })
