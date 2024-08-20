@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 import cookieParser from 'cookie-parser'
 import connectDB from './config/db.js'
 import { notFound, errorHandler} from './middleware/errorMiddleware.js'
@@ -25,6 +26,7 @@ app.use(cookieParser())  // allow to access req.cookie (req.cookie.jwt)
 
 app.use( '/api/products',productRoutes)
 app.use( '/api/users',userRoutes)
+app.use('/api/orders', orderRoutes)
 
 app.use(notFound)
 app.use(errorHandler)

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 const generateToken =(res,userId)=>{
-    console.log('here is my secret key for register',process.env.JWT_SECRET)
+  
     
 
     const token = jwt.sign({userId}, process.env.JWT_SECRET, {expiresIn: '30d'})   

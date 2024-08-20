@@ -17,12 +17,14 @@ import User from '../models/userModel.js'
             next()
         } catch (error) {
             console.error('Token verification failed:', error);
-         res.status(401).json({ message: 'Not authenticated, no token' });   
+         res.status(401)
+         throw new Error('Not authorized, token failed');   
          
         }
 
     }else{
-        res.status(401).json({ message: 'Not authenticated, no token' });
+        res.status(401)
+        throw new Error('Not authorized, no token');
 
     }
 })
