@@ -4,4 +4,4 @@ export const BASE_URL ='';  // since api proxy is set in the package.json...
 export const PRODUCTS_URL ='/api/products'
 export const USERS_URL ='/api/users'
 export const ORDERS_URL ='/api/orders'
-export const PAYPALS_URL ='/api/paypals'
+export const PAYPAL_URL ='/api/config/paypal'

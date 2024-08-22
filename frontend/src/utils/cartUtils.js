@@ -1,6 +1,6 @@
 export const addDecimals =(num)=>{
-    return (Math.round(num   *100)/100).toFixed(2)
-}
+    return (Math.round(num*100)/100).toFixed(2)
+}                                   //.toFixed(2) return string
 
 export const updateCart =(state)=>{
 
@@ -9,11 +9,11 @@ export const updateCart =(state)=>{
             state.itemsPrice = addDecimals(state.cartItems.reduce((accPrice, item)=> accPrice+ item.price*item.qty, 0) ) // 0 is acc's default value
 
             //calculate shipping  price (if order is over $100, it is free, else $ 10 shipping fee)
-            state.shippingPrice = addDecimals(state.itemsPrice >100? 0:10)
+            state.shippingPrice = addDecimals(Number(state.itemsPrice) >100? 0:10)
 
              //calculate tax  price: 15% tax
 
-             state.taxPrice = addDecimals(Number((0.15* state.itemsPrice).toFixed(2)))
+             state.taxPrice = addDecimals(Number(state.itemsPrice) * 0.15)
 
               //calculate total  price
               state.totalPrice =(
