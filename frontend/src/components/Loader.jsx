@@ -13,11 +13,6 @@ const Loader=()=>{
             display:"block",
          }}
         
-        
-        
-        
-        
-        
         />
     )
 }

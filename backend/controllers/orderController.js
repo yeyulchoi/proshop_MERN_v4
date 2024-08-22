@@ -12,7 +12,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
   const { orderItems, shippingAddress, paymentMethod ,
      itemsPrice, taxPrice, shippingPrice,totalPrice,} = req.body;
-    // there is orderitems arry, but it is empty.
+    // there is orderitems array, but it is empty.
      if (orderItems && orderItems.length===0){
         res.status(400)
         throw new Error('no order items')
@@ -37,7 +37,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @access  Private
 const getMyOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({ user: req.user._id });
-  res.status.json(orders)
+  res.status(200).json(orders)
 
 });
 
