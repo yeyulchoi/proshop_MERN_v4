@@ -16,8 +16,8 @@ const authUser =asyncHandler(async (req,res)=>{
     if(user && (await user.matchPassword(password))){
         generateToken(res,user._id)
 
-        res.status(200).json({
-            _id:user.id,
+        res.json({
+            _id:user._id,
             name:user.name,
             email:user.email,
             isAdmin: user.isAdmin    // token is not stored in the json together with the other data, instead, stored in cookie. It will get sent with every subsequent reqeust.
@@ -34,7 +34,7 @@ const authUser =asyncHandler(async (req,res)=>{
 //@route POST /api/users  -- creating new resource
 //@access public
 const registerUser =asyncHandler(async (req,res)=>{
-  const{name, email, password} = req.body;
+  const {name, email, password} = req.body;
   console.log('new user',name, email)
 
   const userExists = await User.findOne({email})
@@ -45,10 +45,10 @@ const registerUser =asyncHandler(async (req,res)=>{
   }
 
   const user = await User.create({name,email,password})
- console.log(user.name, user.email)
+ console.log('created user',user.name, user.email)
   if(user){
     generateToken(res,user._id)
-    console.log('here is just registered new member',token) 
+    
     res.status(201).json({
         _id:user._id,
         name:user.name,
@@ -61,19 +61,18 @@ const registerUser =asyncHandler(async (req,res)=>{
   }
 
      
-})
+})   
 
 //@desc logout user / clear cookie
 //@route POST /api/users/logout
 //@access private
-const logoutUser =asyncHandler(async (req,res)=>{
-    res.cookie('jwt','',{
-        httpOnly: true,
-        expires: new Date(0),
-       }) 
-    
-       res.status(200).json({message:"Logged out successfully."})   
-})
+const logoutUser = (req,res)=>{
+    console.log('this is jwt before deleted')
+    res.clearCookie('jwt') 
+    console.log('this is jwt deleted')
+
+    res.status(200).json({message:"Logged out successfully."})   
+}
 
 //@desc get user profile
 //@route GET /api/users/profile

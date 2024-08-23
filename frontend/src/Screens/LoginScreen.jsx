@@ -33,7 +33,7 @@ const LoginScreen = () => {
         if(userInfo){
             navigate(redirect);
         } 
-    },[userInfo, redirect, navigate])
+    },[navigate,userInfo, redirect ])
 
 
 
@@ -43,8 +43,8 @@ const LoginScreen = () => {
             const res = await login({email, password}).unwrap();
             dispatch(setCredentials({...res}))
             navigate(redirect);
-       } catch (error) {
-        toast.error(error?.data?.message || error?.error)
+       } catch (err) {
+        toast.error(err?.data?.message || err?.error)
         
        }
     }
@@ -66,23 +66,24 @@ const LoginScreen = () => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                     type='password'
-                    placeholder='Enter_password'
+                    placeholder='Enter password'
                     value={password}
                     onChange={(e)=> setPassword(e.target.value)}
                 ></Form.Control>
             </Form.Group>
-            <Button type='submit' variant='primary' className='mt-2' disabled ={isLoading}>
+            <Button disabled ={isLoading} type='submit' variant='primary' className='mt-2' >
                 Sign In
             </Button>
             
             {isLoading && <Loader/>}
-
+            </Form>
             <Row className='py-3'>
                 <Col>
-                New Customer?   <Link to={redirect? `/register?redirect=${redirect}`:'/register'}>Register</Link>
+                New Customer? {' '}
+                  <Link to={redirect? `/register?redirect=${redirect}`:'/register'}>Register</Link>
                 </Col>
             </Row>
-        </Form>
+        
     </FormContainer>
   )
 }

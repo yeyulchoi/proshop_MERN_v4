@@ -3,11 +3,11 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const AdminRoute = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+    
+    const {userInfo} = useSelector((state)=>state.auth)
+
+
+  return userInfo && userInfo.isAmin? <Outlet/>:<Navigate to='/login' replace/>
 }
 
 export default AdminRoute

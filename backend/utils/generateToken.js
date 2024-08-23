@@ -4,7 +4,7 @@ const generateToken =(res,userId)=>{
   
     
 
-    const token = jwt.sign({userId}, process.env.JWT_SECRET, {expiresIn: '30d'})   
+    const token = jwt.sign({userId}, process.env.JWT_SECRET, {expiresIn: '30d',})   
         // userID: is payload what i want to send into is payload // 'userID' field is customized, not built-in field.
 
        
