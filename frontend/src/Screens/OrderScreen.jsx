@@ -93,8 +93,8 @@ function OrderScreen() {
   
     const deliverHandler = async () => {
       await deliverOrder(orderId);
-      refetch();
-    };  
+      refetch();// refetch function : is called to refresh the data related to the order. / fetching the latest state of the order- updated delivery status from the server.
+    };  //
 
 
   return  isLoading? <Loader /> :error? <Message variant ="danger"/>:
@@ -232,7 +232,7 @@ function OrderScreen() {
                 </ListGroup.Item>
               )}
 
-              {/* {loadingDeliver && <Loader />}
+              {loadingDeliver && <Loader />}
 
               {userInfo &&
                 userInfo.isAdmin &&
@@ -247,7 +247,7 @@ function OrderScreen() {
                       Mark As Delivered
                     </Button>
                   </ListGroup.Item>
-                )} */}
+                )}
             </ListGroup>
           </Card>
         </Col>

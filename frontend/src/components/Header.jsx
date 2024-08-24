@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {Badge,Navbar, Container, Nav ,NavDropdown} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap'
 import { FaShopify, FaUser} from 'react-icons/fa';
@@ -60,20 +60,15 @@ const Header = () => {
               </NavDropdown.Item>
             </NavDropdown>
           ):(  <LinkContainer to="/login"> 
-            <Nav.Link her='/login'><FaUser/>Sign In</Nav.Link>
+            <Nav.Link to='/login'><FaUser/>Sign In</Nav.Link>            
           </LinkContainer>   )}
-           {userInfo && userInfo.isAdmin&&(
-            <NavDropdown title='Admin' id='adminmenu'>
-             <LinkContainer to='/admin/productlist'>
-               <NavDropdown.Item>Product</NavDropdown.Item>
-             </LinkContainer>  
-             <LinkContainer to='/admin/userlist'>
-               <NavDropdown.Item>User</NavDropdown.Item>
-             </LinkContainer>  
-             <LinkContainer to='/admin/orderlist'>
-               <NavDropdown.Item>Orders</NavDropdown.Item>
-             </LinkContainer>  
-                        
+          {/* // addition of admin */}
+           {(userInfo && userInfo.isAdmin) &&(
+            <NavDropdown title='Admin' id='adminmenu'>      
+              <NavDropdown.Item as={Link} to='/admin/orderlist'>Orders</NavDropdown.Item>           
+              <NavDropdown.Item as={Link} to='/admin/productlist'>Product</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to='/admin/userlist'>User</NavDropdown.Item>
+                                
            </NavDropdown>
            )}
           </Nav>    

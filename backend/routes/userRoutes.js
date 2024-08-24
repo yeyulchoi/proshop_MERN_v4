@@ -18,7 +18,7 @@ import {protect, admin} from '../middleware/authMiddleware.js'
 
 
 router.route('/').post(registerUser).get(protect,admin, getUsers)
-router.post('/auth', authUser )
+router.post('/auth', authUser ) // no need prior authentication. must not have protect in authUser route
 router.post('/logout',logoutUser)
 router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile)
 
