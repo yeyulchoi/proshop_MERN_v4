@@ -142,10 +142,25 @@ const updateProduct = asyncHandler(async (req, res) => {
       throw new Error('Resource not found')
     }
   });
+      // @desc    Get top rated products
+      // @route   GET /api/products/top
+      // @access  Public
+        const getTopProducts = asyncHandler(async (req, res) => {
+          const products = await Product.find({}).sort({ rating: -1 }).limit(3);  //retrieve a list of products from DB using Mongoose
+          res.json(products);                       
+          
+          
+                                  //.find({}):fetch all documents in the collection.
+                                  //.sort({ rating: -1 }):based on teh specified field/ rating in descending order(higher number comes first)
+                                    //.limit(3);the number of documents returned by the query.
+
+                                    // don't have to use .unwrap() (when in using await. cos  it is not where Redux Toolkit Query did not wrap the promise)
+                                    //in this case , await give the resolved value directly.
+          
+        });
 
 
 
 export  {getProducts, getProductById, createProduct,  updateProduct, deleteProduct,
-  createProductReview,
-    // getTopProducts,
+  createProductReview, getTopProducts,
   }
