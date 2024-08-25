@@ -11,11 +11,13 @@ import {
   
 } from '../../slices/productsApiSlice';
 import { toast } from 'react-toastify';
+import Paginate from '../../components/Paginate';
+
 
 const ProductListScreen = () => {
   const { pageNumber } = useParams();
 
-  const { data=[], isLoading, error, refetch } = useGetProductsQuery({});
+  const { data, isLoading, error, refetch } = useGetProductsQuery({pageNumber,});
 //  console.log(data.map((i)=>i.name))  --need to initialize data as  array.otherwise, the errors occured.
 
 
@@ -81,7 +83,7 @@ const ProductListScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((product) => (
+              {data.products.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
@@ -109,7 +111,7 @@ const ProductListScreen = () => {
               ))}
             </tbody>
           </Table>
-          {/* <Paginate pages={data.pages} page={data.page} isAdmin={true} /> */}
+          <Paginate pages={data.pages} page={data.page} isAdmin={true} />
         </>
       )}
     </>

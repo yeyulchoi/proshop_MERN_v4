@@ -1,16 +1,17 @@
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Row, Col} from 'react-bootstrap';
 // import products from '../products'//not using this. since not using next.js, we use useEffect hook in order to fetch the data
 import Product from '../components/Product';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Paginate from '../components/Paginate';
 
 
 const HomeScreen = () => {
-  const {pageNumber }=useParams();
-  const {data, isLoading, error} = useGetProductsQuery({pageNumber});  // data is not just holding products, with creation of pages, other elements are included. 
+  const {pageNumber, keyword }=useParams();
+  const {data, isLoading, error} = useGetProductsQuery({pageNumber, keyword});  // data is not just holding products, with creation of pages, other elements are included. 
                                                                   //  SO the below it should be data.products. in data.products.map((product)
   
   return(
@@ -29,6 +30,11 @@ const HomeScreen = () => {
               </Col>
             ))} 
           </Row>
+          <Paginate
+            pages={data.pages}
+            page={data.page}
+            keyword={keyword ? keyword : ''}
+          />
         
         </>
       )}
