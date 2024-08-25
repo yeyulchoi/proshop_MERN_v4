@@ -95,7 +95,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   // @route   POST /api/products/:id/reviews
   // @access  Private
   const createProductReview = asyncHandler(async (req, res) => {
-    const {rating, comment} =req.body
+    const {name,rating, comment} =req.body
 
     const product = await Product.findById(req.params.id)
 
@@ -109,10 +109,11 @@ const updateProduct = asyncHandler(async (req, res) => {
         throw new Error('Product already reviewed')
       }
       const review ={
+        user: req.user._id,
         name : req.user.name,
         rating: Number(rating),
-        comment, 
-        user: req.user._id
+        comment:comment, 
+        
       }
       
      product.reviews.push(review)
@@ -132,6 +133,6 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 
 export  {getProducts, getProductById, createProduct,  updateProduct, deleteProduct,
-    createProductReview,
+  createProductReview,
     // getTopProducts,
   }
