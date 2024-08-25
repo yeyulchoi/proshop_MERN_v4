@@ -8,13 +8,18 @@ import Product from '../models/productModel.js'
 //@access public
 const getProducts =asyncHandler(async (req,res)=>{
 //pagination
-    const pageSize =2;   // the number of items per page
+    const pageSize =3;   // the number of items per page
     const page = Number(req.query.pageNumber) || 1;
+       
 
-    //total number of pages. mongoose method.count documents- Model.countDocuments
-    const count =await Product.countDocuments({})
+//search              // 'i' is case insensitive.
+const keyword =req.query.keyword?{name:{$regex:req.query.keyword, $options:'i'}}:{};
 
-    const products = await Product.find({})  // empty object to get all products
+ //total number of pages. mongoose method.count documents- Model.countDocuments
+ const count =await Product.countDocuments({...keyword})
+
+
+    const products = await Product.find({...keyword})  // empty object to get all products
                                           .limit(pageSize)
                                           .skip(pageSize*(page-1))
     res.json({products, page, pages:Math.ceil(count/pageSize)})

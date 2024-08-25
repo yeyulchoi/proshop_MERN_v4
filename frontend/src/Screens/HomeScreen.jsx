@@ -11,7 +11,7 @@ import Paginate from '../components/Paginate';
 
 const HomeScreen = () => {
   const {pageNumber, keyword }=useParams();
-  const {data, isLoading, error} = useGetProductsQuery({pageNumber, keyword});  // data is not just holding products, with creation of pages, other elements are included. 
+  const {data, isLoading, error} = useGetProductsQuery({keyword, pageNumber, });  // data is not just holding products, with creation of pages, other elements are included. 
                                                                   //  SO the below it should be data.products. in data.products.map((product)
   
   return(
