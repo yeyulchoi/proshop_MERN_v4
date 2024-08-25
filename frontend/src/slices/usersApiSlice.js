@@ -33,8 +33,48 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 url:`${USERS_URL}/profile`,
                 method:'PUT',
                 body:data,
+            })  
+        }),
+        getUsers:builder.query({
+            query:()=>({
+                url:`${USERS_URL}`,               
+            }),
+            providesTags:['Users'],
+            keepUnusedDataFor:5
+        }),
+        // updateUser:builder.mutation({
+        //     query:(user)=>({
+        //         url:`${USERS_URL}/${user._id}`,
+        //         method:'PUT',
+        //         body:user                
+        //     }),
+        //     providesTags:['Users']
+        // }),
+        deleteUser: builder.mutation({
+            query:(id)=>({
+                url:`${USERS_URL}/${id}`,
+                method:'DELETE',
             })
+        }),
+        getUserDetails: builder.query({
+            query:(id)=>({
+                url:`${USERS_URL}/${id}`,  // don't forget it. this url is server side url...
+                
+            }),
+            keepUnusedDataFor:5
+        }),
+        updateUserDetails: builder.mutation({
+            //If error occurs, fix it to query:({data})
+            query:({userData})=>({    
+                
+                url:`${USERS_URL}/${userData.userId}`,  // don't forget it. this url is server side url...
+                method:'PUT',
+                body:userData               
+            }),
+            invalidatesTags: ['Users'],
+            keepUnusedDataFor:5  // Keeps unused data for 5 seconds before garbage collection.
         })
+
         
         
         
@@ -47,5 +87,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 export const {useLoginMutation,
     useLogoutMutation, 
     useRegisterMutation,
-    useProfileMutation} = usersApiSlice
+    useProfileMutation,
+    useGetUsersQuery,
+    useUpdateUserMutation,
+    useDeleteUserMutation,
+    useGetUserDetailsQuery,
+    useUpdateUserDetailsMutation,
+
+
+} = usersApiSlice
   
