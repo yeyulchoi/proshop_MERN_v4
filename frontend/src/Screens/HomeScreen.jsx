@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
 import { Row, Col} from 'react-bootstrap';
 // import products from '../products'//not using this. since not using next.js, we use useEffect hook in order to fetch the data
 import Product from '../components/Product';
@@ -8,8 +9,9 @@ import Message from '../components/Message';
 
 
 const HomeScreen = () => {
-  
-  const {data:products, isLoading, error} = useGetProductsQuery();
+  const {pageNumber }=useParams();
+  const {data, isLoading, error} = useGetProductsQuery({pageNumber});  // data is not just holding products, with creation of pages, other elements are included. 
+                                                                  //  SO the below it should be data.products. in data.products.map((product)
   
   return(
     <>
@@ -21,7 +23,7 @@ const HomeScreen = () => {
         <>
           <h1>Latest Products</h1>
           <Row>
-            {products.map((product)=>(
+            {data.products.map((product)=>(
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                 <Product product ={product}/>
               </Col>

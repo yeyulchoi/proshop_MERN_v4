@@ -7,8 +7,17 @@ import Product from '../models/productModel.js'
 //@route GET /api/products
 //@access public
 const getProducts =asyncHandler(async (req,res)=>{
+//pagination
+    const pageSize =2;   // the number of items per page
+    const page = Number(req.query.pageNumber) || 1;
+
+    //total number of pages. mongoose method.count documents- Model.countDocuments
+    const count =await Product.countDocuments({})
+
     const products = await Product.find({})  // empty object to get all products
-    res.json(products)
+                                          .limit(pageSize)
+                                          .skip(pageSize*(page-1))
+    res.json({products, page, pages:Math.ceil(count/pageSize)})
     //The Product.find({}) method is used to retrieve documents (records) from the Product collection in MongoDB.
    //The empty object {} as the argument means "find all documents" in the collection.
 })
@@ -23,8 +32,7 @@ const getProductById= asyncHandler(async(req,res)=>{
         return res.json(product)
     }else{
         res.status(404)
-        throw new Error('Product not Found')
-    
+        throw new Error('Product not Found')    
     }
     
 })
