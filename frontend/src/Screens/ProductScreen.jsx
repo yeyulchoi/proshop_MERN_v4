@@ -60,7 +60,7 @@ const ProductScreen = () => {
         (
             <>
 
-
+            
             <Row>
                 <Col md={5}>
                     <Image src={product.image} alt={product.name}  fluid />

@@ -18,9 +18,7 @@ const port=process.env.PORT || 5000;
 const app = express()
 
 
-app.get('/',(req,res)=>{
-    res.send('hello world')
-})
+
 
 //Body parser middleware
 app.use(express.json());
@@ -41,6 +39,20 @@ app.get('/api/config/paypal',(req,res)=> res.send({clientId: process.env.PAYPAL_
 const __dirname = path.resolve() //for static files, set __dirname to current directory   //path.resolve: current direcotry: proshop-eCommerce-main
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))   //__dirname: the directory path of the current module/file: backend.
 
+
+//test to see if we are in production
+
+if(process.env.NODE_ENV==='production'){
+    //set static folder
+    app.use(express.static(path.join(__dirname,'/frontend/build')))
+
+    // any route that is not api will be redirected to index.html
+    app.get('*',(req,res)=> res.sendFile(path.resolve(__dirname,'frontend','build','index.html')))
+}else{
+    app.get('/',(req,res)=>{
+        res.send('API is running')
+    })
+}
 
 app.use(notFound)
 app.use(errorHandler)

@@ -8,7 +8,7 @@ import Product from '../models/productModel.js'
 //@access public
 const getProducts =asyncHandler(async (req,res)=>{
 //pagination
-    const pageSize =3;   // the number of items per page
+    const pageSize =process.env.PAGINATION_LIMIT;   // the number of items per page
     const page = Number(req.query.pageNumber) || 1;
        
 

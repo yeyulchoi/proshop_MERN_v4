@@ -17,13 +17,14 @@ const HomeScreen = () => {
   
   return(
     <>
-    {!keyword ? <p><ProductCarousel/></p> :<Link to ='/' className='btn btn-light'>Go Back</Link>}
+    {!keyword ? <ProductCarousel/> :<Link to ='/' className='btn btn-light'>Go Back</Link>}
       { isLoading ? (
         <h2><Loader/></h2>
       ): error ? (
         <Message variant='danger'>{ error.message || 'An error occurred'}</Message>        
       ):(
         <>
+       
           <h1>Latest Products</h1>
           <Row>
             {data.products.map((product)=>(
